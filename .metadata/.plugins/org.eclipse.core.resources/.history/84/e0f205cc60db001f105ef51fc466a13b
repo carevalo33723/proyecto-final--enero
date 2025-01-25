@@ -1,10 +1,10 @@
  <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="Layaut/Base::head">
+<head th:replace="layaut/Base::head">
 	<meta charset="UTF-8"/>
 </head>
 <body>
-	<header th:replace="Layaut/Base::header"></header>
+	<header th:replace="layaut/Base::header"></header>
 
     <!-- contenido -->
 	<div class="container mt-4 mb-4">
@@ -60,7 +60,7 @@
 		</div>  	
     </div>
 
-    <footer th:replace="Layaut/Base::footer"></footer>
+    <footer th:replace="layaut/Base::footer"></footer>
 
  
     
