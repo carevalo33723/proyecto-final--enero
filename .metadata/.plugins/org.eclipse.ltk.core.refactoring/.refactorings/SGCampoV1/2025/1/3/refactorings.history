@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;SGCampoV1/src/main/resources/templates/Cosecha/altaCosecha&apos; to &apos;altaCosecha.html&apos;" description="Rename resource &apos;altaCosecha&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/main/resources/templates/Cosecha/altaCosecha" name="altaCosecha.html" stamp="1736783400145" updateReferences="true"/>
+</session>

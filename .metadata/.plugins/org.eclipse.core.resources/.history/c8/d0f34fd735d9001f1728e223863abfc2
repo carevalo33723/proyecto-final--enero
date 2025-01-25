@@ -1,0 +1,42 @@
+#spring.application.name=SGCampoV1
+server.port=7076
+
+
+#spring.datasource.url=jdbc:mysql://localhost:3306/BD_prestamo?useSSL=false
+#spring.datasource.username=root
+#spring.datasource.password=
+#spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+#spring.jpa.hibernate.naming_strategy=my.package.CustomNamingStrategy
+
+#=========================
+#= conexion mysql2.0
+#======================
+#spring.jpa.hibernate.ddl-auto=
+#spring.datasource.url=jdbc:mysql://localhost:3306/BD_SgCampo2?useUnicode=true&characterEncoding=utf8&createDatabaseIfNotExist=true
+#spring.datasource.username=root
+#spring.datasource.password=
+spring.datasource.url=${DB_URL}
+spring.datasource.username=${DB_USER}
+spring.datasource.password=${DB_PASSWORD:}
+spring.application.name=sg_campo2
+Spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.jpa.show-sql=true
+
+# ===============================
+# = DATA SOURCE
+# ===============================
+#spring.datasource.url = jdbc:postgresql://localhost:5432/Aplicacion banco
+#spring.datasource.username = postgres
+#spring.datasource.password = admin
+
+# ===============================
+# = JPA / HIBERNATE
+# ===============================
+#spring.jpa.show-sql = true
+#spring.jpa.hibernate.ddl-auto = update
+spring.jpa.hibernate.ddl-auto = update
+spring.jpa.hibernate.generate-ddl = true
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQLDialect
+spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
+
+

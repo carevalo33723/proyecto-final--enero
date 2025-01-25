@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  sg_campo2:
+    build: SGCampoV1
+    mem_limit: 512m
+    ports:
+      - "7076:7076"
+    environment:
+      DB_URL: jdbc:mysql://db:3306/BD_SgCampo2?createDatabaseIfNotExist=true&serverTimezone=UTC
+      DB_USER: root
+      DB_PASSWORD: 1234
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mysql:8.0.33
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_PASSWORD: 1234
+      MYSQL_DATABASE: BD_SgCampo2
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1"]
+      timeout: 10s
+      retries: 10

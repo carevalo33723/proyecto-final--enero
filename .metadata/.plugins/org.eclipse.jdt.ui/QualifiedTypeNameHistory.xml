@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="ar.com.SgCampo.Model.Service.Impl.CentroOperativoSerivice"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ModelAttribute"/>
+    <fullyQualifiedTypeName name="ar.com.SgCampo.Model.Repository.ICentroOperativo"/>
+    <fullyQualifiedTypeName name="ar.com.SgCampo.Model.Serivice.ICentroOperativoService"/>
+    <fullyQualifiedTypeName name="java.util.Optional"/>
+    <fullyQualifiedTypeName name="ar.com.SgCampo.Model.Repository.ISocios"/>
+    <fullyQualifiedTypeName name="ar.com.SgCampo.Model.Service.Impl.SocioService"/>
+    <fullyQualifiedTypeName name="ar.com.SgCampo.Model.Entity.Centro_Operativo"/>
+    <fullyQualifiedTypeName name="java.util.Collections"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.Entity"/>
+    <fullyQualifiedTypeName name="ar.com.SgCampo.Model.Repository.IArrendatario"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
+    <fullyQualifiedTypeName name="ar.com.SgCampo.Model.Service.Impl.ArrendatarioService"/>
+    <fullyQualifiedTypeName name="java.awt.print.Pageable"/>
+    <fullyQualifiedTypeName name="org.springframework.data.domain.PageRequest"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Controller"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Repository"/>
+    <fullyQualifiedTypeName name="org.springframework.data.repository.CrudRepository"/>
+    <fullyQualifiedTypeName name="java.lang.Long"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
+    <fullyQualifiedTypeName name="ar.com.SgCampo.Model.Repository.ICosecha"/>
+    <fullyQualifiedTypeName name="ar.com.SgCampo.Model.Service.Impl.CosechaServiceImpl"/>
+    <fullyQualifiedTypeName name="ar.com.SgCampo.Model.Serivice.IArrendatarioService"/>
+    <fullyQualifiedTypeName name="org.springframework.ui.Model"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
+    <fullyQualifiedTypeName name="org.hibernate.mapping.List"/>
+    <fullyQualifiedTypeName name="ar.com.SgCampo.Model.Entity.Arrendatario"/>
+    <fullyQualifiedTypeName name="ar.com.SgCampo.Model.Entity.Socio"/>
+    <fullyQualifiedTypeName name="ar.com.SgCampo.Model.Serivice.ISociosService"/>
+    <fullyQualifiedTypeName name="ar.com.SgCampo.Model.Serivice.IProductoService"/>
+    <fullyQualifiedTypeName name="ar.com.SgCampo.Model.Entity.Producto"/>
+    <fullyQualifiedTypeName name="ar.com.SgCampo.Model.Entity.Cosecha"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ResponseBody"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
+    <fullyQualifiedTypeName name="ar.com.SgCampo.Model.Serivice.ICosechaService"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+    <fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonBackReference"/>
+    <fullyQualifiedTypeName name="ar.com.SgCampo.Model.Entity.ArrendatarioDTO"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
+</qualifiedTypeNameHistroy>

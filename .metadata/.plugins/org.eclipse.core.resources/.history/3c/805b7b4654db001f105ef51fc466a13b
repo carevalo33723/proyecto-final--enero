@@ -1,0 +1,67 @@
+               <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layaut/Base::head">
+	<meta charset="UTF-8"/>
+</head>
+<body>
+	<header th:replace="layaut/Base::header"></header>
+
+    <!-- contenido -->
+	<div class="container mt-4 mb-4">
+	
+	
+    	<div class="card">
+    			<div class="card-header text-white bg-dark">
+				<h3>PRODUCTOS</h3>
+			</div>
+			<div class="card-body">
+				<table class="table table-striped table-responsive-sm table-bordered table-hover table-sm">
+					<thead>
+					
+						<tr>
+						    <th>DETALLE</th>		
+						
+							<th>NOMBRE</th>		
+							<th width="15%" class="text-center"><a th:href="@{/AltaProducto}"class="btn btn-primary"><i class="fa fa-user-plus" aria-hidden="true"></i> </a></th>
+						</tr>
+						
+					</thead>
+					<tbody>					
+						<tr th:each="centro:${produ}"> 
+							<td th:text="${centro.detalle}"></td>						
+							<td th:text="${centro.nombreProducto}"></td>
+							<td>
+								<span >
+        							<p>
+											<a  class="btn btn-warning btn-sm"><i class="fa fa-pencil-square-o"
+												aria-hidden="true"></i> </a>
+										<a class="btn btn-info btn-sm"><i class="fa fa-users" aria-hidden="true"></i>
+										</a>
+										<a class="btn btn-secondary btn-sm"><i class="fa fa-usd"
+												aria-hidden="true"></i></a>
+										<a class="btn btn-danger btn-sm"><i class="fas fa-user-minus"></i></a>
+        							</p>
+       								
+      								
+    							</span>
+							</td>
+						</tr>
+					
+						
+					</tbody>
+				</table>
+				<div class="col-sm-12 text-center">
+					<a class="btn btn-primary"><i class="fa fa-download"></i> Descargar en Pdf</a>
+				</div>
+			</div>
+		</div>  	
+    </div>
+
+    <footer th:replace="layaut/Base::footer"></footer>
+
+ 
+    
+    
+
+  </body>
+</html>

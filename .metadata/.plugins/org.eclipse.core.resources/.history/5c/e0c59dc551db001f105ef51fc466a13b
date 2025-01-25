@@ -1,0 +1,124 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layaut/Base::head">
+	<meta charset="UTF-8" />
+</head>
+
+<body>
+	<header th:replace="layaut/Base::header"></header>
+	<div class="container">
+		<h2 class="mt-4">Formulario de Registro de Cosecha</h2>
+		<form th:action="@{/guardarCosecha}" th:object="${cosecha}" method="post">
+			<!-- Fecha -->
+			<div class="form-group row mt-4">
+				<label for="fecha" class="col-lg-3 col-form-label">Fecha de Cosecha:</label>
+				<div class="col-lg-3">
+					<input type="datetime-local" class="form-control" id="fecha" th:field="*{fecha}" required />
+				</div>
+			</div>
+
+			<!-- Socio -->
+			<div class="form-group row">
+    <label for="socioSelect" class="col-lg-3 col-form-label">Socio:</label>
+    <div class="col-lg-3">
+        <select class="form-control" id="socioSelect" th:field="*{arriendatario.socio.id}" required>
+            <option value="">Selecciona un socio</option>
+            <option th:each="socio : ${listaSocios}" th:value="${socio.id}" th:text="${socio.nombre}">
+            </option>
+        </select>
+    </div>
+</div>
+<!--arrendatario-->
+<div class="form-group row">
+    <label for="arrendatarioSelect" class="col-lg-3 col-form-label">Arrendatario:</label>
+    <div class="col-lg-3">
+        <select class="form-control" id="arrendatarioSelect" th:field="*{arriendatario.id}" required>
+    <option value="">Seleccione un arrendatario</option>
+</select>
+
+    </div>
+</div>
+
+
+			<!-- Producto -->
+			<div class="form-group row">
+				<label for="productoSelect" class="col-lg-3 col-form-label">Producto:</label>
+				<div class="col-lg-3">
+					<select class="form-control" id="productoSelect" th:field="*{producto.id}" required>
+						<option value="">Selecciona un producto</option>
+						<option th:each="producto : ${listaProductos}" th:value="${producto.id}"
+							th:text="${producto.nombreProducto}"></option>
+					</select>
+				</div>
+			</div>
+
+			<!-- Cantidad Cosechada -->
+			<div class="form-group row">
+				<label for="cantidadCosechada" class="col-lg-3 col-form-label">Cantidad Cosechada:</label>
+				<div class="col-lg-3">
+					<input type="number" class="form-control" id="cantidadCosechada" th:field="*{cantidadCosechada}"
+						min="1" required />
+				</div>
+			</div>
+
+			<!-- Nota -->
+			<div class="form-group row">
+				<label for="nota" class="col-lg-3 col-form-label">Nota (opcional):</label>
+				<div class="col-lg-6">
+					<textarea class="form-control" id="nota" th:field="*{nota}" rows="3"></textarea>
+				</div>
+			</div>
+
+			<!-- Botón de envío -->
+			<div class="form-group row mt-4">
+				<div class="col-lg-6 offset-lg-3">
+					<button type="submit" class="btn btn-success">Registrar Cosecha</button>
+				</div>
+			</div>
+		</form>
+
+	</div>
+
+	<!-- Interactividad con JavaScript -->
+	<script>
+		document.getElementById('socioSelect').addEventListener('change', function () {
+    const socioId = this.value;
+    const arrendatarioSelect = document.getElementById('arrendatarioSelect');
+
+    // Limpia el combobox de arrendatarios y deshabilítalo si no hay selección
+    arrendatarioSelect.innerHTML = '<option value="">Seleccione un arrendatario</option>';
+    arrendatarioSelect.disabled = true;
+
+    if (socioId) {
+        // Realiza la solicitud AJAX para obtener los arrendatarios
+        fetch(`/obtenerArrendatarios/${socioId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la respuesta de la API');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Poblar el combobox con los arrendatarios recibidos
+                data.forEach(arrendatario => {
+                    const option = document.createElement('option');
+                    option.value = arrendatario.id;
+                    option.textContent = arrendatario.nombreCompleto;
+                    arrendatarioSelect.appendChild(option);
+                });
+
+                // Habilita el combobox
+                arrendatarioSelect.disabled = false;
+            })
+            .catch(error => {
+                console.error('Error al cargar los arrendatarios:', error);
+            });
+    }
+});
+
+	</script>
+	<footer th:replace="layaut/Base::footer"></footer>
+</body>
+
+</html>
