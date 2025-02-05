@@ -7,7 +7,7 @@ import ar.com.SgCampo.Model.Entity.Producto;
 
 public interface IProducto extends CrudRepository<Producto, Long>{
 	
-	 Producto findByNombreProducto(String nombre);
+	 Producto findByNombre(String nombre);
 	 Producto findById(int id);
 
 }

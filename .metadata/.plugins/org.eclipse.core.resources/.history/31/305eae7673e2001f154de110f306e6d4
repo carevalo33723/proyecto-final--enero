@@ -1,0 +1,11 @@
+package ar.com.SgCampo.Model.Repository;
+
+import org.springframework.data.repository.CrudRepository;
+
+import ar.com.SgCampo.Model.Entity.DetalleCosecha;
+
+public interface IDetalleEmbalado extends CrudRepository<DetalleCosecha, Long>{
+	
+	
+
+}

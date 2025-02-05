@@ -1,0 +1,21 @@
+package ar.com.SgCampo.Controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+@Controller
+public class EmbaladoController {
+	
+	
+	@GetMapping("/nuevo")
+    public String nuevoEmbalado(@RequestParam("cosechaId") int cosechaId, Model model) {
+       
+		
+		model.addAttribute("cosecha", cosechaService.obtenerPorId(cosechaId));
+        model.addAttribute("detallesCosecha", detalleCosechaService.obtenerPorCosecha(cosechaId));
+        return "embalado-form";
+    }
+
+}

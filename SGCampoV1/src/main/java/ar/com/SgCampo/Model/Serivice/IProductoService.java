@@ -5,6 +5,7 @@ import java.util.Optional;
 
 
 import ar.com.SgCampo.Model.Entity.Producto;
+import ar.com.SgCampo.Model.Entity.Socio;
 
 public interface IProductoService {
 
@@ -14,4 +15,5 @@ public interface IProductoService {
 	 int save (Producto p);
 	 void eliminar(int id);
 	 Producto findByNombreProducto(String nombre);
+	 Producto ProductoPorID (int id);
 }

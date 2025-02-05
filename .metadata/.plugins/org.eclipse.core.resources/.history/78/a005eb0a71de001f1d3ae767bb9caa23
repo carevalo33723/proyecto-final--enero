@@ -1,0 +1,66 @@
+package ar.com.SgCampo.Controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import ar.com.SgCampo.Model.Entity.Centro_Operativo;
+import ar.com.SgCampo.Model.Entity.Lote;
+import ar.com.SgCampo.Model.Entity.Socio;
+import ar.com.SgCampo.Model.Serivice.ICentroOperativoService;
+import ar.com.SgCampo.Model.Serivice.ILoteService;
+import ar.com.SgCampo.Model.Serivice.ISociosService;
+
+@Controller
+public class SocioController {
+	
+	@Autowired
+	ISociosService dato;
+	@Autowired
+	ILoteService loteService;
+	
+	@GetMapping("/AltaSocio")
+    public String crear(Model model) {        
+        // Obtener la lista de lotes disponibles
+        List<Lote> listaLotes = loteService.listar();
+        model.addAttribute("listaLotes", listaLotes);
+        
+        // Crear un nuevo objeto Socio para la vista
+        Socio nuevoSocio = new Socio();        
+        model.addAttribute("CentroO", nuevoSocio);
+
+        return "Socios/AltaSocio";
+    }
+
+    @PostMapping("/guardarSocio")
+    public String guardar(Model model, Socio socioParaGuardar, 
+                          @RequestParam("lote.id") int loteId) {  
+        // Verificar si el socio ya existe por nombre
+        Socio socioRepetidoNombre = dato.findByNombre(socioParaGuardar.getNombre());
+        if (socioRepetidoNombre != null) {            
+            return "redirect:/Socios";
+        }
+
+        // Asociar el socio con el lote seleccionado
+        Lote lote = loteService.findById(loteId);
+        socioParaGuardar.setLote(lote);
+
+        // Guardar el socio en la base de datos
+        dato.save(socioParaGuardar);        
+        return "redirect:/Socios";
+    }
+	
+	@GetMapping("/editarSocio/{id}")
+	public String editar (@PathVariable int id,Model model) {
+		
+		
+		return null;
+	}
+}

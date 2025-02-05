@@ -56,6 +56,12 @@ public class ProductoSeriviceImpl implements IProductoService{
 		return null;
 	}
 
+	@Override
+	public Producto ProductoPorID(int id) {
+		
+		return pr.findById(id);
+	}
+
 	
 	
 }

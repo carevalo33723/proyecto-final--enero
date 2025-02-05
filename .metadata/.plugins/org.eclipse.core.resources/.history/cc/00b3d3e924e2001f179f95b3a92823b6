@@ -1,0 +1,27 @@
+package ar.com.SgCampo.Model.Entity;
+
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+public class DetalleEmbalado {
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "embalado_id")
+    private Embalado embalado;
+
+    @ManyToOne
+    @JoinColumn(name = "detalle_cosecha_id")
+    private DetalleCosecha detalleCosecha;
+
+    private int cantidadCosechada;
+    private int cantidadEmbalada;
+    private int cajonesUtilizados;
+
+}

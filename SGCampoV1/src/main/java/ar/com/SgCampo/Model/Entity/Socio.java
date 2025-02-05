@@ -25,18 +25,24 @@ public class Socio {
 	    private String telefono;
 	    private String correoElectronico;
 
-	    @ManyToOne
-	    @JoinColumn(name = "centro_operativo_id")
-	    private Centro_Operativo centroOperativo;
+	     
 	    
-	    // En la clase Socio
+	 // Relación con el lote (muchos socios en un lote)
+	    @ManyToOne
+	    @JoinColumn(name = "lote_id")
+	    private Lote lote;
+	    
+	    // Un socio puede tener múltiples arrendatarios
 	    @OneToMany(mappedBy = "socio")
 	    private List<Arrendatario> arrendatarios;
 
-		
+		public Socio() {
+			super();
+			// TODO Auto-generated constructor stub
+		}
 
 		public Socio(Long id, String nombre, String pellido, String direccion, String telefono,
-				String correoElectronico, Centro_Operativo centroOperativo, List<Arrendatario> arrendatarios) {
+				String correoElectronico, Lote lote, List<Arrendatario> arrendatarios) {
 			super();
 			this.id = id;
 			this.nombre = nombre;
@@ -44,13 +50,8 @@ public class Socio {
 			this.direccion = direccion;
 			this.telefono = telefono;
 			this.correoElectronico = correoElectronico;
-			this.centroOperativo = centroOperativo;
+			this.lote = lote;
 			this.arrendatarios = arrendatarios;
-		}
-
-		public Socio() {
-			super();
-			// TODO Auto-generated constructor stub
 		}
 
 		public Long getId() {
@@ -101,12 +102,12 @@ public class Socio {
 			this.correoElectronico = correoElectronico;
 		}
 
-		public Centro_Operativo getCentroOperativo() {
-			return centroOperativo;
+		public Lote getLote() {
+			return lote;
 		}
 
-		public void setCentroOperativo(Centro_Operativo centroOperativo) {
-			this.centroOperativo = centroOperativo;
+		public void setLote(Lote lote) {
+			this.lote = lote;
 		}
 
 		public List<Arrendatario> getArrendatarios() {
@@ -116,10 +117,8 @@ public class Socio {
 		public void setArrendatarios(List<Arrendatario> arrendatarios) {
 			this.arrendatarios = arrendatarios;
 		}
-		@Override
-		public String toString() {
-		    return nombre; 
-		} 
+
+		
 	    
 
 }

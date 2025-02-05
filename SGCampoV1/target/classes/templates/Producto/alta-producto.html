@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="Layaut/index::head">
+	<meta charset="UTF-8" />
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+	<div class="wrapper">
+
+		<!-- Preloader -->
+		<div class="preloader flex-column justify-content-center align-items-center">
+			<img class="animation__shake" src="/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+		</div>
+		<header th:replace="Layaut/index::header"></header>
+		<aside class="main-sidebar sidebar-dark-primary elevation-4" th:replace="Layaut/index::sidebar"> </aside>
+
+
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<div th:replace="Layaut/index::header1"></div>
+
+			<!-- contenido dinamico -->
+
+			<section class="content">
+    <div class="container-fluid">
+        <div class="card card-default">
+            <div class="card-header">
+                <h3 class="card-title">Modulo Productos</h3>
+            </div>
+            
+            
+            <!-- /.card-header -->
+            <div class="card-body">
+                <section class="content">
+    <div class="container-fluid">
+        <div class="card card-default">
+            <div class="card-header">
+                <h3 class="card-title">Alta de Productos</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <form th:action="@{/guardarProducto}" th:object="${Produ}" method="post">
+                    <input type="hidden" th:field="*{id}" />
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Nombre</label>
+                                <input type="text" class="form-control" th:field="*{nombre}" required />
+                            </div>
+
+                          
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Tipo</label>
+                                <input type="text" class="form-control" th:field="*{tipo}" required />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+            </div>
+
+			<!-- /.fin de contenido -->
+		</div>
+        </div>
+    </div>
+			</section>
+
+
+		<footer th:replace="Layaut/index::footer"></footer>
+
+		<!-- Control Sidebar -->
+		<aside class="control-sidebar control-sidebar-dark">
+			<!-- Control sidebar content goes here -->
+		</aside>
+		<!-- /.control-sidebar -->
+	</div>
+	<!-- ./wrapper -->
+<!-- Mensaje de éxito -->
+
+
+
+
+
+
+
+</body>
+
+</html>

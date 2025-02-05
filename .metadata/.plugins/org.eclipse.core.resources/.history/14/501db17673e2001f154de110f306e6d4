@@ -1,0 +1,8 @@
+package ar.com.SgCampo.Model.Service.Impl;
+
+import java.util.List;
+
+public class DetalleEmbaladoServiceImple {
+
+	void guardarConDetalles(String nota, List<Integer> detalleIds, List<Integer> cantidades);
+}

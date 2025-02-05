@@ -1,6 +1,7 @@
 package ar.com.SgCampo.Controller;
 
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,12 +17,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ar.com.SgCampo.Model.Entity.Arrendatario;
 import ar.com.SgCampo.Model.Entity.ArrendatarioDTO;
 import ar.com.SgCampo.Model.Entity.Cosecha;
+import ar.com.SgCampo.Model.Entity.DetalleCosecha;
 import ar.com.SgCampo.Model.Entity.Producto;
 import ar.com.SgCampo.Model.Entity.Socio;
 import ar.com.SgCampo.Model.Serivice.IArrendatarioService;
 import ar.com.SgCampo.Model.Serivice.ICosechaService;
+import ar.com.SgCampo.Model.Serivice.IDetalleCosechaService;
 import ar.com.SgCampo.Model.Serivice.IProductoService;
 import ar.com.SgCampo.Model.Serivice.ISociosService;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class CosechaController {
@@ -34,23 +38,69 @@ public class CosechaController {
 	IProductoService prod;
 	@Autowired
 	ICosechaService cos;
+	@Autowired
+	IDetalleCosechaService det;
+	
 	
 	@GetMapping("/altaCosecha")
-	public String crear(Model model) {
-		//crear la lista para pasar y pueda asociar
-		List <Socio> listaSocio = socio.listar();
+	
+    public String AltaCosecha(Model model, HttpSession session) {
+        
 		
-		List <Producto> listaProducto = prod.listar();
-		
-		model.addAttribute("listaSocios",listaSocio);
-		model.addAttribute("listaProductos",listaProducto);
-		
-		Cosecha NuevaCosecha=new Cosecha();
-		
-		model.addAttribute("cosecha", NuevaCosecha);
-		return "Cosecha/altaCosecha";
-	}
+		// Obtener la venta de la sesión
+        Cosecha cosecha = (Cosecha) session.getAttribute("cosechaActual");
+        if (cosecha == null) {
+        	 cosecha = new Cosecha();
+        	 cosecha.setDetallesCosecha(new ArrayList<>()); // Asegurar que detallesCosecha no es null
+            session.setAttribute("cosechaActual", cosecha);
+        }
 
+        // Obtener socios y productos
+        List<Socio> socios = socio.listar();
+        List<Producto> productos = prod.listar();
+
+        // Pasar datos a la plantilla
+        model.addAttribute("socios", socios);
+        model.addAttribute("productos", productos);
+        model.addAttribute("cosecha", cosecha);
+        model.addAttribute("detallesCosecha", cosecha.getDetallesCosecha()); // Agregar los detalles
+        return "Cosecha/Alta-Cosecha"; // Nombre del archivo HTML
+    }
+	
+	@PostMapping("/cargar-detalle")
+    public String cargarDetalleCosecha( @RequestParam("productoId") int productoId,
+                                       @RequestParam("arrendatarioId") int arrendatarioId, @RequestParam int cantidad,
+                                       HttpSession session) {
+		
+		
+		// Obtener la venta de la sesión
+        Cosecha cosecha = (Cosecha) session.getAttribute("cosechaActual");
+        if (cosecha == null) {
+        	 cosecha = new Cosecha();
+            session.setAttribute("cosechaActual", cosecha);
+        }
+
+        // Crear y agregar el detalle de cosecha a la venta
+        DetalleCosecha detalle = new DetalleCosecha();
+        
+        Producto producto = prod.ProductoPorID(productoId);
+        Arrendatario arrendatario = dat.ArrePorId(arrendatarioId);
+
+        
+        detalle.setProducto(producto);
+        detalle.setArrendatario(arrendatario);
+        detalle.setCantidad(cantidad);
+        
+        // Agregar el detalle a la venta
+        cosecha.agregarDetalle(detalle);
+
+        // Guardar la venta en la sesión
+        session.setAttribute("cosechaActual", cosecha);
+
+        return "redirect:/altaCosecha"; // Redirigir para actualizar la vista
+    }
+	
+		
 	/*
 	 * @GetMapping("/obtenerArrendatarios/{socioId}")
 	 * 
@@ -75,22 +125,35 @@ public class CosechaController {
 	}
 
 	@PostMapping("/guardarCosecha")
-	public String guardarCosecha(Cosecha cosecha, @RequestParam("arriendatario.id") Long arrendatarioId) {
-	    System.out.println(cosecha);
+	public String guardarCosecha(HttpSession session) {
+	    
+		Cosecha cosecha = (Cosecha) session.getAttribute("cosechaActual");
 		
-		// Recupera el objeto completo de Arrendatario usando el ID
-	    Arrendatario arrendatario = dat.Idlistar(arrendatarioId)
-	        .orElseThrow(() -> new IllegalArgumentException("Arrendatario no encontrado"));
+		// Validar que haya productos en la venta
+	    if (cosecha == null || cosecha.getDetallesCosecha().isEmpty()) {
+	        
+	        return "redirect:/altaCosecha"; // Volver al formulario si no hay productos
+	    }
+	    
+	    // Establecer la fecha de la venta
+	    cosecha.setFecha(LocalDateTime.now());
+	    
+	 // Guardar la venta en la base de datos
+	    Cosecha cosechaGuardada = cos.save(cosecha);
+	    
+	 // Guardar los detalles de la venta con la relación correcta
+	    for (DetalleCosecha detalle : cosecha.getDetallesCosecha()) {
+	        detalle.setCosecha(cosechaGuardada); // Asignar la venta guardada al detalle
+	        det.save(detalle);
+	    }
 
-	    // Asocia el Arrendatario con la Cosecha
-	    cosecha.setArriendatario(arrendatario);
-
-	    // Guarda la cosecha
-	    cos.save(cosecha);
+	    // Limpiar la sesión (para que la próxima venta sea nueva)
+	    session.removeAttribute("cosechaActual");
 
 	    // Redirige a la lista de cosechas
-	    return "Cosecha/ListaCosecha";
+	    return "Layaut/index";
 	}
+	
 
 
 

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="Layaut/index::head">
+	<meta charset="UTF-8" />
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+	<div class="wrapper">
+
+		<!-- Preloader -->
+		<div class="preloader flex-column justify-content-center align-items-center">
+			<img class="animation__shake" src="/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+		</div>
+		<header th:replace="Layaut/index::header"></header>
+		<aside class="main-sidebar sidebar-dark-primary elevation-4" th:replace="Layaut/index::sidebar"> </aside>
+
+
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<div th:replace="Layaut/index::header1"></div>
+
+			<!-- contenido dinamico -->
+
+			<section class="content">
+				<div class="container-fluid">
+					<div class="card card-default">
+						<div class="card-header">
+							<h3 class="card-title">COSECHAS</h3>
+						</div>
+
+						<!-- /.card-header -->
+						<div class="card-body">
+							<section class="content">
+								<div class="container-fluid">
+									<div class="card card-default">
+										<div class="card-header">
+											<h3 class="card-title">Detalle</h3>
+										</div>
+										<!-- /.card-header -->
+										<div class="card-body">
+											<form>
+												<input type="hidden" />
+
+												<div class="row">
+													<div class="col-md-6">
+														<div class="form-group">
+															<label>Numero de Cosecha</label>
+															<input type="text" class="form-control" required />
+														</div>
+
+
+														<div class="form-group">
+															<label>Socio</label>
+															<select class="form-control" name="socioId" id="socio">
+																<option>Selecciona el socio</option>
+																<option th:each="socio : ${socios}"
+																	th:value="${socio.id}" th:text="${socio.nombre}">
+																</option>
+															</select>
+														</div>
+													</div>
+
+													<div class="col-md-6">
+														<div class="form-group">
+															<label>Nota</label>
+															<input type="text" class="form-control" />
+														</div>
+
+													</div>
+												</div>
+
+												<div class="card-footer">
+													<button type="submit" class="btn btn-primary" data-toggle="modal"
+														data-target="#detalleModal">Agregar
+														Cosechas</button>
+												</div>
+											</form>
+											<!-- Modal para agregar detalle de cosecha -->
+											<div class="modal" id="detalleModal">
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title"></h5>
+															<button type="button" class="close"
+																data-dismiss="modal">&times;</button>
+														</div>
+														<div class="modal-body">
+
+															<!--form 2-->
+															<div class="card card-primary">
+																<div class="card-header">
+																	<h3 class="card-title">Alta Detalle</h3>
+																</div>
+																<!-- /.card-header -->
+																<!-- form start -->
+																<form th:action="@{/cargar-detalle}" method="post">
+																	<div class="card-body">
+
+																		<div class="form-group">
+																			<label for="producto">Producto</label>
+																			<select class="form-control"
+																				name="productoId" id="producto">
+																				<option
+																					th:each="producto : ${productos}"
+																					th:value="${producto.id}"
+																					th:text="${producto.nombre}">Opción
+																					1</option>
+																			</select>
+																		</div>
+																		<div class="form-group">
+																			<label
+																				ffor="arrendatario">Arrendatario</label>
+																			<select class="form-control"
+																				name="arrendatarioId" id="arrendatario">
+																				<option
+																					th:each="arrendatario : ${arrendatarios}"
+																					th:value="${arrendatario.id}"
+																					th:text="${arrendatario.nombre}">
+																					Opción A</option>
+
+																			</select>
+																		</div>
+
+																		<div class="form-group">
+																			<label for="cantidad">Cantidad</label>
+																			<input type="number" name="cantidad"
+																				id="cantidad"
+																				placeholder="Ingrese la cantidad">
+																		</div>
+
+																	</div>
+																	<!-- /.card-body -->
+
+																	<div class="card-footer">
+																		<button type="submit"
+																			class="btn btn-primary">Enviar</button>
+																	</div>
+																</form>
+															</div>
+
+															<!--form 2 fin-->
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+							</section>
+							<section class="content">
+								<div class="container-fluid">
+									<div class="row">
+										<div class="col-12">
+
+											<!-- /.card -->
+
+											<div class="card">
+												<div class="card-header">
+													<h3 class="card-title">Lista de embalados</h3>
+												</div>
+												<!-- /.card-header -->
+												<div class="card-body">
+													<table class="table table-bordered table-striped">
+														<thead>
+															<tr>
+																<th>NOMBRE</th>
+																<th>APELLIDO</th>
+																<th>DIRECCION</th>
+																<th>LOTE</th>
+																<th width="15%" class="text-center">Opciones</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr th:each="detalle : ${detallesCosecha}">
+																<td th:text="${detalle.producto.nombre}">Producto</td>
+																<td th:text="${detalle.arrendatario.nombre}">
+																	Arrendatario</td>
+																<td th:text="${detalle.cantidad}">Cantidad</td>
+																<td>
+																	<span>
+																		<p>
+																			<a class="btn btn-warning btn-sm"><i
+																					class="fa fa-pencil-square-o"
+																					aria-hidden="true"></i> </a>
+
+																			<a class="btn btn-danger btn-sm"><i
+																					class="fas fa-user-minus"></i></a>
+																		</p>
+
+
+																	</span>
+																</td>
+															</tr>
+
+														</tbody>
+
+													</table>
+												</div>
+												<!-- /.card-body -->
+											</div>
+											<!-- /.card -->
+										</div>
+										<!-- /.col -->
+									</div>
+									<!-- /.row -->
+								</div>
+								<!-- /.container-fluid -->
+							</section>
+
+							<!-- /.fin de contenido -->
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+
+
+		<footer th:replace="Layaut/index::footer"></footer>
+
+		<!-- Control Sidebar -->
+		<aside class="control-sidebar control-sidebar-dark">
+			<!-- Control sidebar content goes here -->
+		</aside>
+		<!-- /.control-sidebar -->
+	</div>
+	<!-- ./wrapper -->
+	<!-- Mensaje de éxito -->
+
+	</div>
+	<script>
+		document.querySelector('#socio').addEventListener('change', function () {
+			let socioId = this.value;
+			if (!socioId) return;
+
+			fetch(`/obtenerArrendatarios/${socioId}`)
+				.then(response => response.json())
+				.then(data => {
+					let arrendatariosSelect = document.querySelector('#arrendatario');
+					arrendatariosSelect.innerHTML = ''; // Limpiar opciones anteriores
+
+					data.forEach(arrendatario => {
+						let option = document.createElement('option');
+						option.value = arrendatario.id;
+						option.textContent = arrendatario.nombreCompleto; // Ajuste aquí
+						arrendatariosSelect.appendChild(option);
+					});
+				})
+				.catch(error => console.error('Error al cargar arrendatarios:', error));
+		});
+
+	</script>
+
+
+</body>
+
+</html>

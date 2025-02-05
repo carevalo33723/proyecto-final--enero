@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="Layaut/index::head">
+	<meta charset="UTF-8" />
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+
+
+	<div class="wrapper">
+
+		<!-- Preloader -->
+		<div class="preloader flex-column justify-content-center align-items-center">
+			<img class="animation__shake" src="/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+		</div>
+		<header th:replace="Layaut/index::header"></header>
+		<aside class="main-sidebar sidebar-dark-primary elevation-4" th:replace="Layaut/index::sidebar"> </aside>
+
+
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<div th:replace="Layaut/index::header1"></div>
+
+			<!-- contenido dinamico -->
+
+			<section class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12">
+
+							<!-- /.card -->
+							<form th:action="@{/guardarEmbalajes}" method="post">
+								<label>Nota:</label>
+    <input type="text" name="nota">
+							<div class="card">
+								<div class="card-header">
+									<h3 class="card-title">Lista Socios</h3>
+								</div>
+								<!-- /.card-header -->
+								<div class="card-body">
+									<table id="example1" class="table table-bordered table-striped">
+										<thead>
+											<tr>
+												<th>PRODUCTO</th>
+												<th>ARRENDATARIO</th>
+												<th>SOCIO</th>
+												<th>CANTIDAD</th>
+												<th>SELECCIONAR</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="centro:${detallesCosecha}">
+												<td th:text="${centro.producto.nombre}"></td>
+												<td th:text="${centro.arrendatario.nombre}"></td>
+												<td th:text="${centro.arrendatario.socio.nombre}"></td>
+												<td><input type="number" name="cantidadEmbalada" required></td>
+												<td><input type="checkbox" name="seleccionados" th:value="${centro.id}">
+												</td>
+
+											</tr>
+
+										</tbody>
+
+									</table>
+								</div>
+								<!-- /.card-body -->
+							</div>
+							<!-- /.card -->
+							<button type="submit">Guardar Embalado</button>
+							</form>
+						</div>
+						<!-- /.col -->
+					</div>
+					<!-- /.row -->
+				</div>
+				<!-- /.container-fluid -->
+			</section>
+			<!-- /.fin de contenido -->
+		</div>
+
+
+
+
+		<footer th:replace="Layaut/index::footer"></footer>
+
+		<!-- Control Sidebar -->
+		<aside class="control-sidebar control-sidebar-dark">
+			<!-- Control sidebar content goes here -->
+		</aside>
+		<!-- /.control-sidebar -->
+	</div>
+	<!-- ./wrapper -->
+
+
+
+
+
+
+</body>
+
+</html>

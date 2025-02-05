@@ -1,0 +1,139 @@
+package ar.com.SgCampo.Controller;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import ar.com.SgCampo.Model.Entity.Arrendatario;
+import ar.com.SgCampo.Model.Entity.ArrendatarioDTO;
+import ar.com.SgCampo.Model.Entity.Cosecha;
+import ar.com.SgCampo.Model.Entity.DetalleCosecha;
+import ar.com.SgCampo.Model.Entity.Producto;
+import ar.com.SgCampo.Model.Entity.Socio;
+import ar.com.SgCampo.Model.Serivice.IArrendatarioService;
+import ar.com.SgCampo.Model.Serivice.ICosechaService;
+import ar.com.SgCampo.Model.Serivice.IProductoService;
+import ar.com.SgCampo.Model.Serivice.ISociosService;
+import jakarta.servlet.http.HttpSession;
+
+@Controller
+public class CosechaController {
+
+	@Autowired
+	IArrendatarioService dat;
+	@Autowired
+	ISociosService socio;
+	@Autowired
+	IProductoService prod;
+	@Autowired
+	ICosechaService cos;
+	
+	@GetMapping("/altaCosecha")
+	
+    public String AltaCosecha(Model model, HttpSession session) {
+        
+		// Obtener un identificador único para la sesión
+	    String sessionId = session.getId();
+		// Obtener la venta de la sesión
+        Cosecha cosecha = (Cosecha) session.getAttribute("cosechaActual"+ sessionId);
+        if (cosecha == null) {
+        	 cosecha = new Cosecha();
+            session.setAttribute("cosechaActual" + sessionId, cosecha);
+        }
+
+        // Obtener socios y productos
+        List<Socio> socios = socio.listar();
+        List<Producto> productos = prod.listar();
+
+        // Pasar datos a la plantilla
+        model.addAttribute("socios", socios);
+        model.addAttribute("productos", productos);
+        model.addAttribute("cosecha", cosecha);
+        model.addAttribute("detallesCosecha", cosecha.getDetallesCosecha()); // Agregar los detalles
+        return "Cosecha/Alta-Cosecha"; // Nombre del archivo HTML
+    }
+	
+	@PostMapping("/cargar-detalle")
+    public String cargarDetalleCosecha( @RequestParam("productoId") int productoId,
+                                       @RequestParam("arrendatarioId") int arrendatarioId, @RequestParam int cantidad,
+                                       HttpSession session) {
+		
+		
+		// Obtener el identificador único de la sesión (usado anteriormente)
+	    String sessionId = session.getId();  // Usamos el ID único de la sesión que ya tenemos
+		// Obtener la venta de la sesión
+        Cosecha cosecha = (Cosecha) session.getAttribute("cosechaActual"+ sessionId);
+        if (cosecha == null) {
+        	 cosecha = new Cosecha();
+            session.setAttribute("cosechaActual"+ sessionId, cosecha);
+        }
+
+        // Crear y agregar el detalle de cosecha a la venta
+        DetalleCosecha detalle = new DetalleCosecha();
+        
+        Producto producto = prod.ProductoPorID(productoId);
+        Arrendatario arrendatario = dat.ArrePorId(arrendatarioId);
+
+        
+        detalle.setProducto(producto);
+        detalle.setArrendatario(arrendatario);
+        detalle.setCantidad(cantidad);
+        
+        // Agregar el detalle a la venta
+        cosecha.agregarDetalle(detalle);
+
+        // Guardar la venta en la sesión
+        session.setAttribute("cosechaActual"+ sessionId, cosecha);
+
+        return "redirect:/altaCosecha"; // Redirigir para actualizar la vista
+    }
+	
+		
+	/*
+	 * @GetMapping("/obtenerArrendatarios/{socioId}")
+	 * 
+	 * @ResponseBody // public List<Arrendatario> obtenerArrendatarios(@PathVariable
+	 * Long socioId) { return dat.listarPorSocio(socioId); }
+	 */
+	@GetMapping("/obtenerArrendatarios/{socioId}")
+	@ResponseBody
+	public List<ArrendatarioDTO> obtenerArrendatarios(@PathVariable Long socioId) {
+	    List<Arrendatario> arrendatarios = dat.listarPorSocio(socioId);
+	    List<ArrendatarioDTO> arrendatariosDTO = new ArrayList<>();
+
+	    for (Arrendatario arrendatario : arrendatarios) {
+	        ArrendatarioDTO dto = new ArrendatarioDTO(
+	            arrendatario.getId(),
+	            arrendatario.getNombre() + " " + arrendatario.getApellido()
+	        );
+	        arrendatariosDTO.add(dto);
+	    }
+
+	    return arrendatariosDTO;
+	}
+
+	@PostMapping("/guardarCosecha")
+	public String guardarCosecha(Cosecha cosecha, @RequestParam("arriendatario.id") Long arrendatarioId) {
+	    System.out.println(cosecha);
+		
+		
+
+	    // Guarda la cosecha
+	    cos.save(cosecha);
+
+	    // Redirige a la lista de cosechas
+	    return "Cosecha/ListaCosecha";
+	}
+
+
+
+}

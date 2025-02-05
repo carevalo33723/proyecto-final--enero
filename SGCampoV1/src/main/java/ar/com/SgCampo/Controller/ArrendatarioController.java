@@ -38,18 +38,23 @@ public class ArrendatarioController {
 		
 		
 		/* model.addAttribute("accion", "guardar"); */		
-		return "Arrendatario/AltaArre";
+		return "Arrendatario/Alta-Arrendatario";
 	}
 	
-	@PostMapping("/guardarArre")
-	public String guardar(Model model, Arrendatario SocioParaGuardar,@RequestParam("Socio.id") int SocioId) {		
-		Arrendatario arreRepetidoNombre = arre.findByNombre(SocioParaGuardar.getNombre());//Busca si ya existe el arrendatario
-		if (arreRepetidoNombre != null) {			
-			return "redirect:/Arrendatario";//si ya existe el usuario, regresa a la pantalla anterior, pero no guarda el usuario.(metodo listarLoguin)
-		}
-		Socio centroOperativo = dato.findById(SocioId);
-	    SocioParaGuardar.setSocio(centroOperativo);
-		arre.save(SocioParaGuardar);		
-		return "redirect:/Arrendatario";//Guarda el nuevo usuario y regresa al hoe con el pad /socios
-	}
-}
+	
+	  @PostMapping("/guardarArre") public String guardar(Model model,
+			  Arrendatario SocioParaGuardar,@RequestParam("Socio.id") int SocioId) {
+	
+	  //Busca si ya existe el arrendatario 
+	   Arrendatario arreRepetidoNombre = arre.findByNombre(SocioParaGuardar.getNombre());
+	  if (arreRepetidoNombre != null) { return
+	  "redirect:/Arrendatario";}//si ya existe el usuario, regresa a la pantalla anterior, pero no guarda 
+	 
+	  Socio socio = dato.SocioPorID(SocioId);
+	  SocioParaGuardar.setSocio(socio);
+	  arre.save(SocioParaGuardar);
+	  return "redirect:/Arrendatario";//Guarda el nuevo usuario y regresa al hoe con el pad /socios
+	  }
+	 
+	  
+	  }

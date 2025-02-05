@@ -1,0 +1,9 @@
+package ar.com.SgCampo.Model.Serivice;
+
+import org.springframework.data.repository.CrudRepository;
+
+import ar.com.SgCampo.Model.Entity.DetalleCosecha;
+
+public interface IDetalleEmbaladoService {
+
+}

@@ -59,4 +59,10 @@ public class ArrendatarioService implements IArrendatarioService{
 		return dato.findBySocioId(socioId);
 	}
 
+	@Override
+	public Arrendatario ArrePorId(int id) {
+		
+		return dato.findById(id);
+	}
+
 }

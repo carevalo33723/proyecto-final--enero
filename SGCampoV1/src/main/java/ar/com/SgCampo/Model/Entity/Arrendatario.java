@@ -1,7 +1,6 @@
 package ar.com.SgCampo.Model.Entity;
-import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,26 +10,28 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
+
 @Entity
 public class Arrendatario {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	private String nombre;
+	private String apellido;
+	private String direccion;
+	private String telefono;
+	private String correoElectronico;
+
+	// Relación con socio (muchos arrendatarios para un socio)
+	@ManyToOne
+	@JoinColumn(name = "socio_id")
+	private Socio socio;
 	
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String nombre;
-    private String apellido;
-    private String direccion;
-    private String telefono;
-    private String correoElectronico;
-
-    @ManyToOne
-    @JoinColumn(name = "socio_id")
-    private Socio socio;
-    
-    @OneToMany(mappedBy = "arriendatario")
-    
-    private List<Cosecha> cosechas;
+	 // Un arrendatario puede tener múltiples detalles de cosecha
+    @OneToMany(mappedBy = "arrendatario")
+    private List<DetalleCosecha> detallesCosecha;
 
 	public Arrendatario() {
 		super();
@@ -38,7 +39,7 @@ public class Arrendatario {
 	}
 
 	public Arrendatario(Long id, String nombre, String apellido, String direccion, String telefono,
-			String correoElectronico, Socio socio, List<Cosecha> cosechas) {
+			String correoElectronico, Socio socio, List<DetalleCosecha> detallesCosecha) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -47,7 +48,7 @@ public class Arrendatario {
 		this.telefono = telefono;
 		this.correoElectronico = correoElectronico;
 		this.socio = socio;
-		this.cosechas = cosechas;
+		this.detallesCosecha = detallesCosecha;
 	}
 
 	public Long getId() {
@@ -106,14 +107,14 @@ public class Arrendatario {
 		this.socio = socio;
 	}
 
-	public List<Cosecha> getCosechas() {
-		return cosechas;
+	public List<DetalleCosecha> getDetallesCosecha() {
+		return detallesCosecha;
 	}
 
-	public void setCosechas(List<Cosecha> cosechas) {
-		this.cosechas = cosechas;
+	public void setDetallesCosecha(List<DetalleCosecha> detallesCosecha) {
+		this.detallesCosecha = detallesCosecha;
 	}
-    
-    
+
+	
 
 }

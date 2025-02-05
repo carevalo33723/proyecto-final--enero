@@ -1,0 +1,28 @@
+package ar.com.SgCampo.Controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import ar.com.SgCampo.Model.Entity.Cosecha;
+import ar.com.SgCampo.Model.Serivice.ICosechaService;
+
+@Controller
+public class EmbaladoController {
+	
+	@Autowired
+	ICosechaService cos;
+	
+	@GetMapping("/nuevo")
+    public String nuevoEmbalado(@RequestParam("cosechaId") int cosechaId, Model model) {
+       
+		Cosecha cosecha= cos.CosechaPorID(cosechaId);
+		model.addAttribute("cosecha", cosecha);
+		
+        model.addAttribute("detallesCosecha", detalleCosechaService.obtenerPorCosecha(cosechaId));
+        return "embalado-form";
+    }
+
+}

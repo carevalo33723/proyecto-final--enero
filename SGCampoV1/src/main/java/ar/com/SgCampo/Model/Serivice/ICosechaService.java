@@ -5,6 +5,7 @@ import java.util.Optional;
 
 
 import ar.com.SgCampo.Model.Entity.Cosecha;
+import ar.com.SgCampo.Model.Entity.Embalado;
 
 public interface ICosechaService {
 	List<Cosecha> listar();
@@ -12,6 +13,8 @@ public interface ICosechaService {
 	Cosecha save (Cosecha p);
 	 void eliminar(int id);
 		/* Arrendatario findByNombre(String nombre); */
+	 
+	 Cosecha CosechaPorID(int id);
 	
 	
 }

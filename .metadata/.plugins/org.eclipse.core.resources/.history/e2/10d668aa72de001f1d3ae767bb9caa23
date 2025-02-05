@@ -1,0 +1,85 @@
+package ar.com.SgCampo.Model.Entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+@Entity
+public class DetalleCosecha {
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "cosecha_id", nullable = false)
+    private Cosecha cosecha;
+
+    @ManyToOne
+    @JoinColumn(name = "producto_id", nullable = false)
+    private Producto producto;
+    
+    @ManyToOne
+    @JoinColumn(name = "arriendatario_id")
+    private Arrendatario arriendatario;
+
+    private int cantidad;
+
+	public DetalleCosecha(Long id, Cosecha cosecha, Producto producto, Arrendatario arriendatario, int cantidad) {
+		super();
+		this.id = id;
+		this.cosecha = cosecha;
+		this.producto = producto;
+		this.arriendatario = arriendatario;
+		this.cantidad = cantidad;
+	}
+
+	public DetalleCosecha() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Cosecha getCosecha() {
+		return cosecha;
+	}
+
+	public void setCosecha(Cosecha cosecha) {
+		this.cosecha = cosecha;
+	}
+
+	public Producto getProducto() {
+		return producto;
+	}
+
+	public void setProducto(Producto producto) {
+		this.producto = producto;
+	}
+
+	public Arrendatario getArriendatario() {
+		return arriendatario;
+	}
+
+	public void setArriendatario(Arrendatario arriendatario) {
+		this.arriendatario = arriendatario;
+	}
+
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
+    
+    
+}

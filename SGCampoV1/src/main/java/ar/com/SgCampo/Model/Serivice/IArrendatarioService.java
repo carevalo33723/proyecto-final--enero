@@ -14,6 +14,6 @@ public interface IArrendatarioService {
 	 void eliminar(int id);
 	 Arrendatario findByNombre(String nombre);
 	 List<Arrendatario> listarPorSocio(Long socioId);
-	
+	 Arrendatario ArrePorId (int id);
 	
 }

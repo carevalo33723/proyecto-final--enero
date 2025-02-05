@@ -1,0 +1,40 @@
+package ar.com.SgCampo.Model.Service.Impl;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import ar.com.SgCampo.Model.Entity.DetalleCosecha;
+import ar.com.SgCampo.Model.Repository.IDetalleCosecha;
+import ar.com.SgCampo.Model.Serivice.IDetalleCosechaService;
+
+public class DetalleCosechaImple implements IDetalleCosechaService{
+	@Autowired
+	IDetalleCosecha cose;
+	
+	@Override
+	public List<DetalleCosecha> listar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Optional<DetalleCosecha> Idlistar(int id) {
+		// TODO Auto-generated method stub
+		return Optional.empty();
+	}
+
+	@Override
+	public DetalleCosecha save(DetalleCosecha p) {
+		
+		return cose.save(p);
+	}
+
+	@Override
+	public void eliminar(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

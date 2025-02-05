@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="Layaut/Base::head">
+	<meta charset="UTF-8" />
+</head>
+
+<body>
+	<header th:replace="Layaut/Base::header"></header>
+
+	<!-- contenido -->
+	<div class="container mt-4 mb-4">
+
+
+		<div class="card">
+			<div class="card-header text-white bg-dark">
+				<h3>Lista de Socios</h3>
+			</div>
+			<div class="card-body">
+				<table class="table table-striped table-responsive-sm table-bordered table-hover table-sm">
+					<thead>
+
+						<tr>
+							<th>PRODUCTO</th>
+							<th>ARRENDATARIO</th>
+							<th>SOCIO</th>
+							
+						</tr>
+
+					</thead>
+					<tbody>
+						<tr th:each="centro:${detallesCosecha}">
+							<td th:text="${centro.producto.nombre}"></td>
+							<td th:text="${centro.arrendatario.nombre}"></td>
+							<td th:text="${centro.arrendatario.socio.nombre}"></td>
+							<td><input type="number" name="cantidadEmbalada" required></td>
+							<td><input type="checkbox" name="seleccionados" th:value="${centro.detalle.id}"></td>
+							
+						</tr>
+
+
+					</tbody>
+				</table>
+				<div class="col-sm-12 text-center">
+					<a class="btn btn-primary"><i class="fa fa-download"></i> Descargar en Pdf</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="Layaut/Base::footer"></footer>
+
+
+
+
+
+</body>
+
+</html>

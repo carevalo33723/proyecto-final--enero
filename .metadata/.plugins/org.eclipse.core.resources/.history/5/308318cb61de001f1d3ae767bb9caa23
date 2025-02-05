@@ -1,0 +1,40 @@
+package ar.com.SgCampo.Model.Entity;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+
+@Entity
+public class Arrendatario {
+	
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String nombre;
+    private String apellido;
+    private String direccion;
+    private String telefono;
+    private String correoElectronico;
+
+    
+    
+ // Relación con socio (muchos arrendatarios para un socio)
+    @ManyToOne
+    @JoinColumn(name = "socio_id")
+    private Socio socio;
+    
+    
+
+	
+    
+    
+
+}

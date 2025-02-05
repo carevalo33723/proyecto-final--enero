@@ -1,71 +1,49 @@
 package ar.com.SgCampo.Model.Entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-
-
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Cosecha {
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    
-    private LocalDateTime fecha;
+	private LocalDateTime fecha;
 
-    private int cantidadCosechada;
-    private String nota;
-   
-    @ManyToOne
-    @JoinColumn(name = "producto_id")
-    private Producto producto;
+	private String nota;
 
-    @ManyToOne
-    @JoinColumn(name = "arriendatario_id")
-    private Arrendatario arriendatario;
-	
+	// Una cosecha puede tener múltiples detalles de cosecha
+	@OneToMany(mappedBy = "cosecha", cascade = CascadeType.ALL)
+	private List<DetalleCosecha> detallesCosecha;
 
 	public Cosecha() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-
-	public Cosecha(Long id, LocalDateTime fecha, int cantidadCosechada, String nota, Producto producto,
-			Arrendatario arriendatario) {
+	public Cosecha(Long id, LocalDateTime fecha, String nota, List<DetalleCosecha> detallesCosecha) {
 		super();
 		this.id = id;
-		this.fecha = LocalDateTime.now();
-		this.cantidadCosechada = cantidadCosechada;
+		this.fecha = fecha;
 		this.nota = nota;
-		this.producto = producto;
-		this.arriendatario = arriendatario;
+		this.detallesCosecha = detallesCosecha;
 	}
-
-
-	public Arrendatario getArriendatario() {
-		return arriendatario;
-	}
-
-
-	public void setArriendatario(Arrendatario arriendatario) {
-		this.arriendatario = arriendatario;
-	}
-
 
 	public Long getId() {
 		return id;
 	}
-
 
 	public void setId(Long id) {
 		this.id = id;
@@ -79,14 +57,6 @@ public class Cosecha {
 		this.fecha = fecha;
 	}
 
-	public int getCantidadCosechada() {
-		return cantidadCosechada;
-	}
-
-	public void setCantidadCosechada(int cantidadCosechada) {
-		this.cantidadCosechada = cantidadCosechada;
-	}
-
 	public String getNota() {
 		return nota;
 	}
@@ -95,22 +65,20 @@ public class Cosecha {
 		this.nota = nota;
 	}
 
-	public Producto getProducto() {
-		return producto;
+	public List<DetalleCosecha> getDetallesCosecha() {
+		return detallesCosecha;
 	}
 
-	public void setProducto(Producto producto) {
-		this.producto = producto;
+	public void setDetallesCosecha(List<DetalleCosecha> detallesCosecha) {
+		this.detallesCosecha = detallesCosecha;
 	}
-	@Override
-	public String toString() {
-	    return "Cosecha{" +
-	            "id=" + id +
-	            ", cantidadCosechada=" + cantidadCosechada +
-	            ", fecha=" + fecha +
-	            ", nota='" + nota + '\'' +
-	            ", arriendatario=" + (arriendatario != null ? arriendatario.getId() : null) +
-	            ", producto=" + (producto != null ? producto.getId() : null) +
-	            '}';
+	public void agregarDetalle(DetalleCosecha detalle) {
+	    if (this.detallesCosecha == null) {
+	        this.detallesCosecha = new ArrayList<>();
+	    }
+	    this.detallesCosecha.add(detalle);
+	    detalle.setCosecha(this); // Asociamos el detalle con la cosecha
 	}
+
+
 }

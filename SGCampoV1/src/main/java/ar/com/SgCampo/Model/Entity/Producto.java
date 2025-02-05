@@ -14,63 +14,64 @@ public class Producto {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String nombreProducto;
-    private String detalle;
+	private Long id;
+    private String nombre;
+    private String tipo;
     
-    
+    // Un producto puede estar en múltiples detalles de cosecha
     @OneToMany(mappedBy = "producto")
-    private List<Cosecha> cosechas;
+    private List<DetalleCosecha> detallesCosecha;
     
 	public Producto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
 
-
-	public Producto(Long id, String nombreProducto, String detalle, List<Cosecha> cosechas) {
+	public Producto(Long id, String nombre, String tipo, List<DetalleCosecha> detallesCosecha) {
 		super();
 		this.id = id;
-		this.nombreProducto = nombreProducto;
-		this.detalle = detalle;
-		this.cosechas = cosechas;
+		this.nombre = nombre;
+		this.tipo = tipo;
+		this.detallesCosecha = detallesCosecha;
 	}
-
-
-
 
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getNombreProducto() {
-		return nombreProducto;
-	}
-	public void setNombreProducto(String nombreProducto) {
-		this.nombreProducto = nombreProducto;
-	}
-	public String getDetalle() {
-		return detalle;
-	}
-	public void setDetalle(String detalle) {
-		this.detalle = detalle;
+
+	public String getNombre() {
+		return nombre;
 	}
 
-
-	public List<Cosecha> getCosechas() {
-		return cosechas;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-
-	public void setCosechas(List<Cosecha> cosechas) {
-		this.cosechas = cosechas;
+	public String getTipo() {
+		return tipo;
 	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public List<DetalleCosecha> getDetallesCosecha() {
+		return detallesCosecha;
+	}
+
+	public void setDetallesCosecha(List<DetalleCosecha> detallesCosecha) {
+		this.detallesCosecha = detallesCosecha;
+	}
+	
+	
+	
+
+
+	
     
     
 }

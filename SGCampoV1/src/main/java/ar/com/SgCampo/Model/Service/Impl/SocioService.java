@@ -54,9 +54,13 @@ public class SocioService implements ISociosService{
 	}
 
 	@Override
-	public Socio findById(int id) {
-		// TODO Auto-generated method stub
+	public Socio SocioPorID(int id) {
+	
 		return dato.findById(id);
 	}
+
+	
+
+	
 
 }

@@ -39,4 +39,10 @@ public class CosechaServiceImpl implements ICosechaService{
 		
 	}
 
+	@Override
+	public Cosecha CosechaPorID(int id) {
+		
+		return dat.findById(id);
+	}
+
 }

@@ -25,17 +25,17 @@ public class ProductoController {
 		Producto nuevoCentro = new Producto();		
 		model.addAttribute("Produ", nuevoCentro);
 		/* model.addAttribute("accion", "guardar"); */		
-		return "Producto/AltaProducto";
+		return "Producto/alta-producto";
 	}
 	
 	@PostMapping("/guardarProducto")
 	public String guardar(Model model, Producto Pro) {		
-		Producto centroRepetidoNombre = dato.findByNombreProducto(Pro.getNombreProducto());//Busca si ya existe el cliente(por nombre de usuario)
+		Producto centroRepetidoNombre = dato.findByNombreProducto(Pro.getNombre());//Busca si ya existe el cliente(por nombre de usuario)
 		if (centroRepetidoNombre != null) {			
-			return "redirect:/Producto";//si ya existe el usuario, regresa a la pantalla anterior, pero no guarda el usuario.(metodo listarLoguin)
+			return "redirect:/Producto";//si ya existe el producto, regresa a la pantalla anterior.
 		}
 		dato.save(Pro);		
-		return "redirect:/Producto";//Guarda el nuevo usuario y regresa a la pantalla anterior.(metodo listarLoguin)
+		return "redirect:/Producto";//Guarda el nuevo producto y regresa a la pantalla anterior.
 	}
 
 }

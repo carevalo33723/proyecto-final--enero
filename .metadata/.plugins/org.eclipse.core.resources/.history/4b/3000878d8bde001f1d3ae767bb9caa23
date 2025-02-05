@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="Layaut/index::head">
+	<meta charset="UTF-8" />
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+	<div class="wrapper">
+
+		<!-- Preloader -->
+		<div class="preloader flex-column justify-content-center align-items-center">
+			<img class="animation__shake" src="/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+		</div>
+		<header th:replace="Layaut/index::header"></header>
+		<aside class="main-sidebar sidebar-dark-primary elevation-4" th:replace="Layaut/index::sidebar"> </aside>
+
+
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<div th:replace="Layaut/index::header1"></div>
+
+			<!-- contenido dinamico -->
+
+			<section class="content">
+    <div class="container-fluid">
+        <div class="card card-default">
+            <div class="card-header">
+                <h3 class="card-title">Alta de Socios</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <form >
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Seleccionar Estado</label>
+                                <select class="form-control select2" style="width: 100%;" >
+                                    <option></option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Estado (Deshabilitado)</label>
+                                <select class="form-control select2" disabled="disabled" style="width: 100%;">
+                                    <option ></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Seleccionar Múltiples Estados</label>
+                                <select class="select2" multiple="multiple" th:field="*{estadosSeleccionados}" data-placeholder="Seleccione un Estado" style="width: 100%;">
+                                    <option th:each="estado : ${estados}" th:value="${estado}" th:text="${estado}"></option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Estado con opción deshabilitada</label>
+                                <select class="form-control select2" style="width: 100%;">
+                                    <option th:each="estado : ${estados}" th:value="${estado}" th:text="${estado}" th:disabled="${estado == 'California'}"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h5>Variantes de color</h5>
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Minimal (.select2-danger)</label>
+                                <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;" th:field="*{estado}">
+                                    <option th:each="estado : ${estados}" th:value="${estado}" th:text="${estado}"></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Multiple (.select2-purple)</label>
+                                <div class="select2-purple">
+                                    <select class="select2" multiple="multiple" th:field="*{estadosSeleccionados}" data-placeholder="Seleccione un Estado" data-dropdown-css-class="select2-purple" style="width: 100%;">
+                                        <option th:each="estado : ${estados}" th:value="${estado}" th:text="${estado}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Guardar Socio</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+			<!-- /.fin de contenido -->
+		</div>
+
+
+
+		<footer th:replace="Layaut/index::footer"></footer>
+
+		<!-- Control Sidebar -->
+		<aside class="control-sidebar control-sidebar-dark">
+			<!-- Control sidebar content goes here -->
+		</aside>
+		<!-- /.control-sidebar -->
+	</div>
+	<!-- ./wrapper -->
+
+
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+package ar.com.SgCampo.Model.Entity;
+
+
+import java.util.List;
+
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+
+@Entity
+public class Socio {
+	
+	 @Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    private Long id;
+
+	    private String nombre;
+	    private String pellido;
+	    private String direccion;
+	    private String telefono;
+	    private String correoElectronico;
+
+	     
+	    
+	 // Relación con el lote (muchos socios en un lote)
+	    @ManyToOne
+	    @JoinColumn(name = "lote_id")
+	    private Lote lote;
+	    
+	    // Un socio puede tener múltiples arrendatarios
+	    @OneToMany(mappedBy = "socio")
+	    private List<Arrendatario> arrendatarios;
+
+		
+	    
+
+}

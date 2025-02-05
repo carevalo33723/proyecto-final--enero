@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ar.com.SgCampo.Model.Entity.Arrendatario;
 import ar.com.SgCampo.Model.Entity.Centro_Operativo;
 import ar.com.SgCampo.Model.Entity.Cosecha;
+import ar.com.SgCampo.Model.Entity.Lote;
 import ar.com.SgCampo.Model.Entity.Producto;
 import ar.com.SgCampo.Model.Entity.Socio;
+import ar.com.SgCampo.Model.Serivice.ILoteService;
 import ar.com.SgCampo.Model.Service.Impl.ArrendatarioService;
 import ar.com.SgCampo.Model.Service.Impl.CentroOperativoSerivice;
 import ar.com.SgCampo.Model.Service.Impl.CosechaServiceImpl;
@@ -38,10 +40,18 @@ public class home {
 	
 	@Autowired
 	CosechaServiceImpl cosecha;
+	
+	@Autowired
+	ILoteService lote;
     
     @GetMapping("/")
     public String home() {
-        return "Layaut/Base";  // Corrección aquí
+    	
+    	//return "cosecha/Alta-Cosecha";
+    	
+    	
+    	return "Layaut/index";
+      
     }
     
     @GetMapping("/CentroOperativo")
@@ -50,33 +60,43 @@ public class home {
     	
     	model.addAttribute("centroOpera", operativo);
     	
-        return "Centro.Opertivo/CentroOperativo"; // Nombre de la vista Thymeleaf
+        return "Centro.Opertivo/centro-operativo"; // Nombre de la vista Thymeleaf
+    }
+    
+    @GetMapping("/lista_lotes")
+    public String lotes(Model model) {
+    	List<Lote>operativo= lote.listar();
+    	
+    	model.addAttribute("listado", operativo);
+    	
+        return "lote/lista-lote"; // Nombre de la vista Thymeleaf
     }
     
     @GetMapping("/Socios")
-    public String Socios(Model model,@RequestParam(defaultValue = "0") int page) {
+    public String Socios(Model model) {
 		
 		  List<Socio>operativo= soci.listar(); 
 		  model.addAttribute("Objeto", operativo);
 		 
     	
     
-        return "Socios/ListaSocios"; // Nombre de la vista Thymeleaf
+        return "Socios/Lista-socios"; // Nombre de la vista Thymeleaf
     }
     
     @GetMapping("/Arrendatario")
     public String arrendatario (Model model) {
     	List<Arrendatario> operativo = arre.listar();
     	model.addAttribute("arren", operativo);
+    	return "Arrendatario/Lista-arrendatario";
     	
-    	return "Arrendatario/ListaArrendatario";
+    	//return "Arrendatario/ListaArrendatario";
     }
     @GetMapping("/Producto")
     public String producto (Model model) {
     	List<Producto> operativo = pro.listar();
     	model.addAttribute("produ", operativo);
     	
-    	return "Producto/ListProducto";
+    	return "Producto/lista-producto";
     }
     
     @GetMapping("/Cosecha")
@@ -84,7 +104,7 @@ public class home {
     	List<Cosecha> operativo = cosecha.listar();
     	model.addAttribute("cose", operativo);
     	
-    	return "Cosecha/ListaCosecha";
+    	return "Cosecha/Lista-Cosecha";
     }
     
 }
